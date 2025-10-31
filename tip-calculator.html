@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tip Calculator</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 30rem;
+      padding: 20px 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .heading {
+      text-align: center;
+      padding: 15px 0px;
+      font-size: 30px;
+    }
+
+    .input-container {
+      width: 100%;
+      padding: 10px 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .input-container>label {
+      text-align: left;
+      padding-left: 3px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .input-container>input {
+      width: 100%;
+      padding: 10px 10px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .input-container>input:focus {
+      outline: none;
+      border-color: seagreen;
+      background-color: #f6f5f5;
+    }
+
+    .calculate-btn {
+      width: 100%;
+      padding: 10px 0px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: seagreen;
+      color: #fff;
+      transition: all ease 0.2s;
+    }
+
+    .calculate-btn:hover {
+      cursor: pointer;
+      background-color: rgb(52, 159, 98);
+    }
+
+    .calculate-btn:active {
+      scale: 0.95;
+    }
+
+    .calculation-div {
+      width: 100%;
+      padding: 5px 0px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .calculation-div>p {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .calculation-div>p>span {
+      color: seagreen;
+    }
+
+    .clear-btn {
+      width: 100%;
+      padding: 10px 0px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      background-color: lightcoral;
+      color: #fff;
+      transition: all ease 0.2s;
+    }
+
+    .clear-btn:hover {
+      cursor: pointer;
+      background-color: rgb(255, 148, 148);
+    }
+
+    .clear-btn:active {
+      scale: 0.95;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .container {
+        width: 90%;
+        max-width: 25rem;
+      }
+
+      .heading {
+        padding: 12px 0;
+        font-size: 26px;
+      }
+
+      .input-container>label {
+        font-size: 16px;
+      }
+
+      .input-container>input {
+        font-size: 16px;
+      }
+
+      .calculate-btn {
+        font-size: 16px;
+      }
+
+      .calculation-div {
+        gap: 12px;
+      }
+
+      .calculation-div>p {
+        font-size: 22px;
+      }
+
+      .clear-btn {
+        font-size: 16px;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .container {
+        width: 85%;
+      }
+
+      .heading {
+        padding: 10px 0;
+        font-size: 24px;
+      }
+
+      .input-container>label {
+        font-size: 14px;
+      }
+
+      .input-container>input {
+        font-size: 14px;
+      }
+
+      .calculation-div {
+        gap: 10px;
+      }
+
+      .calculation-div>p {
+        font-size: 20px;
+      }
+
+      .calculate-btn {
+        font-size: 14px;
+      }
+
+      .clear-btn {
+        font-size: 14px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="heading">Tip Calculator</h2>
+    <form class="input-container" action="#">
+      <label for="amount">Enter the total amount:</label>
+      <input id="total-amount" type="text" placeholder="e.g., 5000">
+      <label for="percentage">Enter the tip percent according to amount:</label>
+      <input id="tip-percent" type="text" placeholder="e.g., 2">
+      <button class="calculate-btn">Calculate</button>
+    </form>
+    <div class="calculation-div">
+      <p>Total Amount : <span class="show-amount">0</span></p>
+      <p>Calculated Tip : <span class="show-tip">0</span></p>
+      <button class="clear-btn">Clear</button>
+    </div>
+  </div>
+
+  <script>
+    let totalAmount = document.querySelector('#total-amount');
+    let tipPercent = document.querySelector('#tip-percent');
+    let calculateBtn = document.querySelector('.calculate-btn');
+    let showTip = document.querySelector('.show-tip');
+    let showAmount = document.querySelector('.show-amount');
+    let clearBtn = document.querySelector('.clear-btn');
+
+    let calculateBtnClick = () => {
+
+      if (totalAmount.value === "" || tipPercent.value === "") {
+        alert("Enter the amount and tip percent first!");
+      } else if (isNaN(totalAmount.value) || isNaN(tipPercent.value)) {
+        alert("Enter numbers only!");
+      } else {
+        let calculatedTipPercent = (tipPercent.value * totalAmount.value) / 100;
+        showTip.innerHTML = calculatedTipPercent.toFixed(2);
+        showAmount.innerHTML = totalAmount.value;
+        totalAmount.value = "";
+        tipPercent.value = "";
+      }
+    }
+
+    let clearBtnClick = () => {
+      if (showAmount.innerHTML === "0" || showTip.innerHTML === "0") {
+        alert('Values are already cleared!');
+      } else {
+        showTip.innerHTML = '0';
+        showAmount.innerHTML = '0';
+      }
+    }
+
+    calculateBtn.addEventListener('click', calculateBtnClick);
+    clearBtn.addEventListener('click', clearBtnClick);
+  </script>
+
+</body>
+
+</html>

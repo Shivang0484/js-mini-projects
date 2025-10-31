@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Cursor</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .smallCursor {
+      width: 15px;
+      height: 15px;
+      background-color: darkred;
+      border-radius: 50%;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      transform: translate(-50%, -50%);
+    }
+
+    .shadowCursor {
+      width: 70px;
+      height: 70px;
+      background-color: darkred;
+      border-radius: 50%;
+      filter: blur(35px);
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="smallCursor"></div>
+  <div class="shadowCursor"></div>
+
+  <script>
+    let smallCursor = document.querySelector('.smallCursor');
+    let shadowCursor = document.querySelector('.shadowCursor');
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let animationId = null;
+    let timer = null;
+
+    document.addEventListener('mousemove', function (e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      smallCursor.style.left = mouseX + 'px';
+      smallCursor.style.top = mouseY + 'px';
+
+      if (!animationId) {
+        animateShadowCursor();
+      }
+
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }, 2000);
+    });
+
+    function animateShadowCursor() {
+      let currentX = parseFloat(shadowCursor.style.left) || 0;
+      let currentY = parseFloat(shadowCursor.style.top) || 0;
+
+      let distanceX = mouseX - currentX;
+      let distanceY = mouseY - currentY;
+
+      shadowCursor.style.left = currentX + distanceX * 0.1 + 'px';
+      shadowCursor.style.top = currentY + distanceY * 0.1 + 'px';
+
+      animationId = requestAnimationFrame(animateShadowCursor);
+    }
+
+  </script>
+
+</body>
+
+</html>
