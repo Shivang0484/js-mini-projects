@@ -1,0 +1,126 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #f0f0f0;
+}
+
+.container {
+  width: 100%;
+  background-color: white;
+  max-width: 34rem;
+  margin: 50px auto;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.heading {
+  font-size: 30px;
+  text-align: center;
+}
+
+#searchInput {
+  padding: 12px 10px;
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#searchInput:focus {
+  outline: none;
+  border-color: #919191;
+}
+
+.userContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.userContainer .userItem {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 7px 15px;
+  background-color: #fafafa;
+  width: 100%;
+  height: 4rem;
+}
+
+.userContainer .userItem .image {
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+}
+
+.userContainer .userItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.userContainer .userItem .userDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.userContainer .userItem .userDetails h3 {
+  font-size: 16px;
+}
+
+.userContainer .userItem .userDetails p {
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 90%;
+    max-width: 25rem;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .container {
+    width: 85%;
+  }
+  .heading {
+    font-size: 28px;
+  }
+  .userContainer {
+    gap: 5px;
+  }
+  .userContainer .userItem {
+    gap: 10px;
+  }
+  .userContainer .userItem .image {
+    height: 45px;
+    width: 45px;
+  }
+  .userContainer .userItem .userDetails {
+    gap: 2px;
+  }
+  .userContainer .userItem .userDetails h3 {
+    font-size: 15px;
+  }
+  .userContainer .userItem .userDetails p {
+    font-size: 13px;
+  }
+}
